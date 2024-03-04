@@ -30,6 +30,7 @@ class Arrow{
 			//홀수번쨰만 출력
 			if(1%2 !=0){
 				System.out.println("2*"+i+"="+(2*i));
+				System.out.println("2*"+i+"="+(2*i));
 			}
 		}
 	}
