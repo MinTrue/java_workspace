@@ -69,7 +69,7 @@ public class WinTest {
 		ch.add("JSP");
 		ch.add("Spring");
 		
-		//HTML에서의 checkbox는 JAVA에서도 checkbox 라 함
+		//HTML에서의 Checkbox는 JAVA에서도 Checkbox 라 함
 		Checkbox box = new Checkbox("Travel");
 		
 		frame.add(bt); //윈도우창에 버튼 부착 ctrl+alt 누르면 줄 복사
