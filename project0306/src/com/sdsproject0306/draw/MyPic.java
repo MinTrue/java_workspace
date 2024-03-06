@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 public class MyPic extends JFrame implements ActionListener {
 	MyCanvas can;//그림을 그릴 빈 도화지 객체, 다른 컴포넌트들(ex 버튼, 텍스트필드)은 개발자가 그림을
 					   //뺏어서 그리면 본연의 디자인을 해치므로, 특별한 이유가 아니면 그림을 뺏어그리지 말아야 하지만,
-	                   //Cnavas 는 오히려 개발자가 적극적으로 그림을 그려야 하는 컴포넌트이다.
+	                   //Canvas 는 오히려 개발자가 적극적으로 그림을 그려야 하는 컴포넌트이다.
 					   //사실 JPanel도 그림을 그리는데 아주 많이 사용함
 	
 	JPanel p_south;
