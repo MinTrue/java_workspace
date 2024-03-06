@@ -1,14 +1,22 @@
 package com.sds.project0305.member;
 
+import java.awt.BorderLayout;
 import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,8 +26,13 @@ import javax.swing.JTextField;
  * os 중립적인 Look&Feel 을 가진다.
  * No 걱정 - awt와 크게 달라지지 않고 기존의 awt 컴퍼넌트에 J접두어가 붙인다.
  * 그리고 여전히 java.awt의 레이아웃 배치관리자와 java.awt.event 여전히 java.awt 를 유지
+ * 
+ * 이벤트 프로그래밍의 3단계 절차
+ * 1) 적절한 리스너 선택
+ * 2) 해당 리스너의 메서드 오버라이딩(개발자가 원하는 코드로 재정의)
+ * 3) 컴포넌트와 리스너 연결
  * */
-public class MemberJoin extends JFrame{
+public class MemberJoin extends JFrame implements WindowListener, ActionListener, KeyListener{
 	JLabel la_title; //회원가입 제목 
 	JPanel p_content; // 가운데 영역 
 	JLabel la_id, la_pass, la_jumin, la_gender, la_hobby, la_file, la_zip;
@@ -28,13 +41,19 @@ public class MemberJoin extends JFrame{
 	JPasswordField t_pass; //비밀번호
 	JTextField t_jumin1, t_jumin2; //주민번호 앞,뒤자리
 	//Checkbox를 그룹하 시켜놓아야 라디오가 등장, html 에서도 radio는 배열로 존재시켜야 함
+	CheckboxGroup cg;
+	Checkbox man;
+	Checkbox woman;
 	
 	Checkbox[] hobby = new Checkbox[4]; //취미
-	String[] hobbyName = {"여행","프로그래밍","운동","동물복지"};
+	String[] hobbyName = {"Travel","programming","exercise","pet protection"};
 	JTextField t_profile; //프로필 사진 경로
 	JTextField t_filename, t_ext;// 파일명과 확장자
 	JTextField t_zip1, t_zip2; //우편번호 앞,뒤자리
 	JButton bt_regist; // 가입버튼
+	
+	int hobby_count=0; //체크박스의 총 횟수를 알수있는 지표
+									//1미만이면, 취미를 하나도 체크하지 않은 사람이므로, 알람창!!
 	
 	public MemberJoin() {
 		//생성
@@ -47,14 +66,20 @@ public class MemberJoin extends JFrame{
 		la_hobby = new JLabel("취미");
 		la_file = new JLabel("프로필 사진명");
 		la_zip = new JLabel("우편번호");
-		
+			
 		t_id = new JTextField();
 		t_pass = new JPasswordField();
 		t_jumin1 = new JTextField();
 		t_jumin2 = new JTextField();
+		cg = new CheckboxGroup(); // 그룹을 생성한다.
+		man = new Checkbox("man" , cg, false); //cg 그룹에 소속시킨다
+		woman = new Checkbox("woman" , cg, false);//cg 그룹에 소속시킨다
+		
 		
 		for(int i=0;i<hobby.length;i++) {
 			hobby[i] = new Checkbox(hobbyName[i]);
+			//체크박스와 리스너 연결 
+			//hobby[i].addA
 		}
 		t_profile = new JTextField();
 		t_filename =new JTextField();
@@ -69,9 +94,38 @@ public class MemberJoin extends JFrame{
 		p_content.setBackground(Color.YELLOW);
 		
 		//아이디스타일
-		Dimension d = new Dimension(270, 25);
+		Dimension d = new Dimension(290, 28);
 		la_id.setPreferredSize(d);
 		t_id.setPreferredSize(d);
+		
+		//패스워드 스타일
+		la_pass.setPreferredSize(d);
+		t_pass.setPreferredSize(d);
+		
+		//주민번호 스타일
+		la_jumin.setPreferredSize(d);
+		Dimension D2 = new Dimension(145, 28);
+		t_jumin1.setPreferredSize(D2);
+		t_jumin2.setPreferredSize(D2);
+		
+		//성별 스타일
+		la_gender.setPreferredSize(d);
+		
+		
+		//취미 스타일
+		la_hobby.setPreferredSize(d);
+		
+		//프로필 스타일
+		la_file.setPreferredSize(d);
+		Dimension D3 = new Dimension(110, 28);
+		t_profile.setPreferredSize(D3);
+		t_filename.setPreferredSize(D3);
+		t_ext.setPreferredSize(D3);
+		
+		//우편번호 스타일
+		la_zip.setPreferredSize(d);
+		t_zip1.setPreferredSize(D2);
+		t_zip2.setPreferredSize(D2);
 		
 		//조립
 		add(la_title, BorderLayout.NORTH); //프레임의 북쪽에 부착
@@ -80,12 +134,127 @@ public class MemberJoin extends JFrame{
 		p_content.add(la_id);
 		p_content.add(t_id);
 		
+		p_content.add(la_pass);
+		p_content.add(t_pass);
+		
+		p_content.add(la_jumin);
+		p_content.add(t_jumin1);
+		p_content.add(t_jumin2);
+		
+		p_content.add(la_gender);
+		p_content.add(man);
+		p_content.add(woman);
+		
+		p_content.add(la_hobby);
+		
+		
+		//취미를 반복문으로 부착
+		for(int i=0;i<hobby.length;i++) {
+			p_content.add(hobby[i]);
+		}
+		
+		//프로필 사진 부착
+		p_content.add(la_file);
+		p_content.add(t_filename);
+		p_content.add(t_profile);
+		p_content.add(t_ext);
+		
+		//우편번호 부착
+		p_content.add(la_zip);
+		p_content.add(t_zip1);
+		p_content.add(t_zip2);
+		
+		//버튼 부착
+		p_content.add(bt_regist);
+		
+		//현재 프레임과 리스너 연결
+		//현재프레임.addWindowListener(리스너 구현한 자)
+		//this는 레퍼런스 변수이다.
+		this.addWindowListener(this);
+		
+		//버튼과 리스너 연결
+		bt_regist.addActionListener(this);
+		
+		//주민번호 뒷자리 텍스트필드와 리스너 연결
+		t_jumin2.addKeyListener(this);
+		
 		//원도우 설정
 		setSize(700,500);
-		setVisible(true);
+		setVisible(true);	
+	}
+	
+	//유효성 체크
+	public void checkForm() {
+		//getText() 메서드의 반환값은 String 이고,
+		//String 은 객체이므로 String 객체의 api를 활용할 수 있다.
+		if(t_id.getText().length()<1) {
+			JOptionPane.showMessageDialog(this, "아이디를 입력하세요");
+			t_id.requestFocus();
+			return;
+		}
 		
+		//비밀번호 유효성 체크
+		char[] pass = t_pass.getPassword();
+		if(pass.length <1) {
+			JOptionPane.showMessageDialog(this, "비밀번호를 입력하세요");
+			t_pass.setFocusable(true);
+			return;
+		}
+		
+		//웹: 서버로 전송하거나,
+		//독립실행형 : 오라클에 직접 insert 수행
+		System.out.println("오라클에 등록할 예정");
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		//체크박스 중 하나를 눌렀을때..
+		
+		//버튼을 눌럿을떄
+		//System.out.println("눌렀어?");
+		checkForm();
+	}
+	//t_jumin2에 대해 키보드를  눌렀다 뗐을때 호출
+	public void keyReleased(KeyEvent e) {
+		char n = t_jumin2.getText().charAt(0); //주민번호 뒷자리 String 중 앞 첫 문자 반환
+		//'1' --> 정수 1 js: parseInt() 
+		//자바에서는 모든 기본 자료형을 객체자료형으로 바꾼다거나, 역으로 객체 자료형을 기본자료형으로
+		//변환하는 기능을 지원하는 객체가 있으며, 이 객체를 가리켜 wrapper 클래스라 한다.
+		// byte- Byte, short-Short, int-Integer , long-Long, float, double, char-Character, boolean
+		String s = Character.toString(n); // '1' 을 "1"로 변환
+		int result =Integer.parseInt(s); // "1" 을 정수 1로 변환
+		if(result ==1) { //남자라면
+			man.setState(true); //체크되어있게
+		} else if(result==2) {//여자라면
+			woman.setState(true);//체크되어있게
+		}
+	}
+	
 	public static void main(String[] args) {
-		new MemberJoin();
+		MemberJoin mj = new MemberJoin();
 	}
+	
+	public void windowClosing(WindowEvent e) {
+		System.exit(0);	
+	}
+	public void windowOpened(WindowEvent e) {	
+	}
+	public void windowClosed(WindowEvent e) {
+			
+	}
+	public void windowIconified(WindowEvent e) {
+	}
+	public void windowDeiconified(WindowEvent e) {	
+	}
+	public void windowActivated(WindowEvent e) {	
+	}
+	public void windowDeactivated(WindowEvent e) {		
+	}
+
+	
+	public void keyTyped(KeyEvent e) {
+	}
+	public void keyPressed(KeyEvent e) {
+	}
+	
 }
