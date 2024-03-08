@@ -23,7 +23,7 @@ public class ImageCopy {
 									//바이트 데이터를 출력할 수 있다(쓰기)
 
 	//String filename="D:/java_workspace/app0307/res/chicken.webp";
-	String filename="C:/java_workspace/app0307/res/froit.txt";
+	String filename="C:/java_workspace/app0307/res/fruit.txt";
 	String destname="C:/java_workspace/app0307/res/fruit_copy.txt";
 
 	public ImageCopy(){

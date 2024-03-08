@@ -32,14 +32,14 @@ public class CopyMonitor extends JFrame implements ActionListener, WindowListene
 		super("복사 데이터 모니터링"); //부모님인 JFrame의 생성자 호출
 		la_ori = new JLabel("원본 경로");
 		la_dest = new JLabel("복사 경로");		
-		t_ori = new JTextField("C:/java_workspace/project0307/res/memo.txt");
+		t_ori = new JTextField("C:/java_workspace/project0307/res/meo.txt");
 		t_dest = new JTextField("C:/java_workspace/project0307/res/memo2.txt");		
 		area = new JTextArea();
 		bt = new JButton("복사실행");
 		
 		//style 적용
 		Dimension d1 = new Dimension(150,35); //JLable꺼
-		Dimension d2 = new Dimension(620,35); //JTextField 꺼
+		Dimension d2 = new Dimension(600,35); //JTextField 꺼
 		Dimension d3 = new Dimension(750,350); //JTextArea꺼
 		
 		la_ori.setPreferredSize(d1);
