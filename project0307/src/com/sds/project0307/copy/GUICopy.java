@@ -117,6 +117,7 @@ public class GUICopy  extends JFrame implements ActionListener, WindowListener{
 			try {
 				fos.close();
 			} catch (IOException e1) {
+				//e.printStackTrace() : 에러의 발생근원지를 찾아서 단계별로 에러를 출력합니다.
 				e1.printStackTrace();
 			}
 		}
