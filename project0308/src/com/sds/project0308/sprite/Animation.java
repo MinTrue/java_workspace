@@ -18,7 +18,7 @@ public class Animation extends JFrame implements ActionListener{
 		p_content = new MyPanel();
 		
 		add(p_content); //프레임에 패널 부착
-		add(bt, BorderLayout.NORTH);
+		add(bt, BorderLayout.SOUTH);
 		
 		//버튼과 리스너 연결
 		bt.addActionListener(this);
