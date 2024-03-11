@@ -1,4 +1,4 @@
-package com.sds.porject0311.table;
+package com.sds.project0311.table;
 
 import javax.swing.table.AbstractTableModel;
 
