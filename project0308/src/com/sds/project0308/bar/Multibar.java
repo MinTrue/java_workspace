@@ -1,5 +1,6 @@
 package com.sds.project0308.bar;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,6 +19,7 @@ import javax.swing.JProgressBar;
 public class Multibar extends JFrame{
 	JButton bt;
 	JProgressBar[] bars =new JProgressBar[3]; //바를 만든것은 아니고 공간 3개 확보
+	Canvas can;
 	
 	public Multibar() {
 		bt = new JButton("Start");
@@ -25,6 +27,7 @@ public class Multibar extends JFrame{
 		setLayout(new FlowLayout());
 		
 		add(bt);
+		add(can);
 		
 		
 		//바를 3개 생성
