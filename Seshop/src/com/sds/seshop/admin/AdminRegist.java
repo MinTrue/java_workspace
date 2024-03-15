@@ -83,7 +83,7 @@ public class AdminRegist extends Page{
 		
 		bt_regist = new JButton("가입");
 		bt_login = new JButton("Login");
-		chooser = new JFileChooser("D:/js_workspace/images"); //디폴트 경로
+		chooser = new JFileChooser("C:/js_workspace/images"); //디폴트 경로
 		
 		//스타일 
 		container.setBackground(Color.LIGHT_GRAY);
@@ -183,7 +183,7 @@ public class AdminRegist extends Page{
 		try {
 			fis = new FileInputStream(file);//유저가 선택한 파일에 입력 스트림 꽂기
 			//출력스트림으로 복사할 대상..
-			fos = new FileOutputStream("C:/Users/zino1/SeShop/"+myName);
+			fos = new FileOutputStream("C:/Users/user/SeShop/"+myName);
 			System.out.println("스트림 생성 성공");
 			
 			//입력스트림으로부터 1byte씩 읽고, 다시 출력스트림으로 1byte씩 내려 쓰자 

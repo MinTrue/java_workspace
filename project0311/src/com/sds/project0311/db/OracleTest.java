@@ -63,8 +63,7 @@ public class OracleTest {
 				} else {
 					//insert 성공시  한개의 레코드가 영향을 받은 것이므로 언제나 1이 반환됨
 					System.out.println("등록성공");
-				}
-				
+				}			
 			}		
 			
 		} catch (ClassNotFoundException e) {
